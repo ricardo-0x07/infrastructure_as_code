@@ -9,7 +9,7 @@ Resources:
     Properties:
       VPCZoneIdentifier:
       - Fn::ImportValue: 
-          !Sub "${EnvironmentName}-PUB-NETS"
+          !Sub "${EnvironmentName}-PRIV-NETS"
       LaunchConfigurationName:
         Ref: ServerLaunchConfiguration
       MinSize: '4'
@@ -21,7 +21,6 @@ Resources:
     Properties:
       IamInstanceProfile: !Ref 'ServerInstanceProfile'
       ImageId: ami-07b4f3c02c7f83d59 #required
-      KeyName: ec2_keypair
       SecurityGroups:
         - !Ref ServerSecurityGroup
       InstanceType: t3.small
@@ -74,10 +73,6 @@ Resources:
       - IpProtocol: tcp
         FromPort: 80
         ToPort: 80
-        CidrIp: 0.0.0.0/0
-      - IpProtocol: tcp
-        FromPort: 22
-        ToPort: 22
         CidrIp: 0.0.0.0/0
       SecurityGroupEgress:
       - IpProtocol: tcp
